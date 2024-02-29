@@ -20,7 +20,7 @@ namespace Simulation
     public partial class Form1 : Form
     {
         bool up, left, down, right, shoot;
-        int playerX = 0, playerY = 0, playerSize = 40, playerSpeed = 10, score = 0;
+        int playerX = 0, playerY = 0, playerSize = 40, playerSpeed = 10, score = 0, bullets = 0, bulletIncrement = 10;
 
 
         List<Enemy> enemies = new List<Enemy>();
@@ -82,7 +82,7 @@ namespace Simulation
                     if (score > 600)
                     {
                         if (count <= 1) { enemies.Add(new Enemy(0, 0).setSize(128)); }
-                        else { enemies.Add(new Enemy(maxX, maxY).setSize(128)); }
+                        else { enemies.Add(new Enemy(maxX, maxY).setSize(256)); }
                     }
                     else
                     {
@@ -134,10 +134,11 @@ namespace Simulation
             {
                 playerY += playerSpeed;
             }
-            if (shoot && cooldown <= 0)
+            if (shoot && cooldown <= 0 && bullets > 0)
             {
                 PewPews.Add(new Projectile(playerX, playerY));
                 cooldown = pewTimer;
+                bullets--;
             }
             if (cooldown > 0)
             {
@@ -147,16 +148,18 @@ namespace Simulation
             {
                 if (enemy.move(playerX, playerY, playerSize))
                 {
-                    if (score > 100)
+                    if (score > 1000)
                     {
-                        score -= Convert.ToInt32(enemy.size.ToString().Split('.')[0]);
+                        score -= 500;
+                    }
+                    else if (score > 50)
+                    {
+                        score -= Convert.ToInt32(enemy.size);
                     }
                     else
                     {
                         score--;
                     }
-                    if (playerSize > 30) { playerSize-=5; }
-                    else if (playerSize > 15) { playerSize--; }
                     enemiesToRemove.Add(enemy);
                 }
             }
@@ -166,8 +169,7 @@ namespace Simulation
                 if (food.checkCollision(playerX, playerY, playerSize)) 
                 {
                     GoodStuffToRemove.Add(food);
-                    if (playerSize < 50) {  playerSize += 5; }
-                    else if (playerSize <100) { playerSize += 2; }
+                    bullets += bulletIncrement;
                 }
             }
             foreach (Projectile pew in PewPews)
@@ -204,7 +206,8 @@ namespace Simulation
             }
             PewToRemove.Clear();
             this.Invalidate();
-            txtScore.Text = score.ToString();
+            txtScore.Text = "Score: " + score;
+            txtBullets.Text = "Bullets:" + bullets;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -292,7 +295,6 @@ namespace Simulation
             }
             else
             {               //Collision
-                size = 0;
                 return true;
             }   
         }

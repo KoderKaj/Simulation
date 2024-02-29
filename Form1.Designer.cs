@@ -32,6 +32,7 @@
             this.moveTimer = new System.Windows.Forms.Timer(this.components);
             this.spawnTimer = new System.Windows.Forms.Timer(this.components);
             this.txtScore = new System.Windows.Forms.TextBox();
+            this.txtBullets = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // moveTimer
@@ -48,18 +49,28 @@
             // 
             // txtScore
             // 
-            this.txtScore.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtScore.BackColor = System.Drawing.SystemColors.Window;
             this.txtScore.Enabled = false;
-            this.txtScore.Location = new System.Drawing.Point(13, 13);
+            this.txtScore.Location = new System.Drawing.Point(12, 12);
             this.txtScore.Name = "txtScore";
             this.txtScore.Size = new System.Drawing.Size(100, 22);
             this.txtScore.TabIndex = 0;
+            // 
+            // txtBullets
+            // 
+            this.txtBullets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBullets.Enabled = false;
+            this.txtBullets.Location = new System.Drawing.Point(688, 12);
+            this.txtBullets.Name = "txtBullets";
+            this.txtBullets.Size = new System.Drawing.Size(100, 22);
+            this.txtBullets.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtBullets);
             this.Controls.Add(this.txtScore);
             this.Name = "Form1";
             this.Text = "Simulation";
@@ -76,6 +87,7 @@
         private System.Windows.Forms.Timer moveTimer;
         private System.Windows.Forms.Timer spawnTimer;
         private System.Windows.Forms.TextBox txtScore;
+        private System.Windows.Forms.TextBox txtBullets;
     }
 }
 
